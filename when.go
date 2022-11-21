@@ -35,14 +35,11 @@ func WhenIMakeARequest(options ...RequestOption) *When {
 	return w
 }
 
-func (r *When) IShouldRecieve(wantStatusCode int, wantErr bool, responseBodyBinder interface{}, options ...EchspektOption) error {
+func (r *When) IShouldRecieve(options ...EchspektOption) error {
 	es := new(Then)
-	es.wantStatusCode = wantStatusCode
-	es.wantErr = wantErr
-	es.bindObject = responseBodyBinder
 
-	for _, opt := range options {
-		opt(es)
+	for _, eo := range options {
+		eo(es)
 	}
 
 	return nil
